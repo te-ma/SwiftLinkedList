@@ -1,0 +1,3 @@
+# SwiftLinkedList
+
+A description of this package.
