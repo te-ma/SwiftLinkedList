@@ -1,3 +1,3 @@
 # SwiftLinkedList
 
-A description of this package.
+Provides basic imlementation of a double-linked list.
