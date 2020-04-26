@@ -45,6 +45,9 @@ public class LinkedList<T> {
         }
     }
     
+    /**
+        Initializes a list using  an array of elements
+     */
     public convenience init(_ elements: [T]) {
         self.init()
         
@@ -103,6 +106,8 @@ public class LinkedList<T> {
     }
     
 }
+
+// Implements Sequence protocol to enable traversal
 
 extension LinkedList: Sequence {
     public struct LinkedListIterator: IteratorProtocol {
