@@ -1,9 +1,11 @@
 /**
-   - Complexity:
+   This framework implements basic double-linked list data structure
+    - Complexity:
         - Traversal: O(n)
         - Access a known element: O(1)
-        - Insert element: O(1)
-        - Delete element: O(1)
+        - Access element by index: O(n)
+        - Append element: O(1)
+        - Remove element: O(1)
 */
 
 public class LinkedList<T> {
@@ -14,14 +16,9 @@ public class LinkedList<T> {
         var next: ListNode?
         
         init(_ element: T) {
-            print("init \(element)")
             self.element = element
             self.previous = nil
             self.next = nil
-        }
-        
-        deinit {
-            print("deinit \(self.element)")
         }
     }
     
@@ -37,8 +34,15 @@ public class LinkedList<T> {
         self.count = 0
     }
     
+//  Custom deiniе deallocateы items in sequiential order
+//  Default deinit deallocateы recursively causing stack overflow on large lists
     deinit {
-        print("deinit list")
+        var i = self.makeIterator()
+        self.head = nil
+        while let node = i.next() {
+            node.next?.previous = nil
+            node.next = nil
+        }
     }
     
     public convenience init(_ elements: [T]) {
@@ -69,6 +73,18 @@ public class LinkedList<T> {
         self.count += 1
     }
     
+    public func remove(at index: Int) {
+        var i = 0
+
+        for node in self {
+            if i == index {
+                self.remove(node)
+                return
+            }
+            i += 1
+        }
+    }
+    
     @discardableResult public func remove(_ node: Node) -> T? {
         if node === tail {
             self.tail = node.previous
@@ -85,6 +101,7 @@ public class LinkedList<T> {
         
         return node.element
     }
+    
 }
 
 extension LinkedList: Sequence {

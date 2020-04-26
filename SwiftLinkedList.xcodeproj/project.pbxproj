@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A35CA47824561B0900A1CD5B /* SwiftLinkedListPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35CA47624561A6000A1CD5B /* SwiftLinkedListPerformanceTests.swift */; };
 		OBJ_23 /* SwiftLinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* SwiftLinkedList.swift */; };
 		OBJ_41 /* SwiftLinkedListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* SwiftLinkedListTests.swift */; };
-		OBJ_42 /* XCTestManifests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* XCTestManifests.swift */; };
 		OBJ_44 /* SwiftLinkedList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "SwiftLinkedList::SwiftLinkedList::Product" /* SwiftLinkedList.framework */; };
 /* End PBXBuildFile section */
 
@@ -24,8 +24,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A35CA47624561A6000A1CD5B /* SwiftLinkedListPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftLinkedListPerformanceTests.swift; sourceTree = "<group>"; };
 		OBJ_12 /* SwiftLinkedListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftLinkedListTests.swift; sourceTree = "<group>"; };
-		OBJ_13 /* XCTestManifests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestManifests.swift; sourceTree = "<group>"; };
 		OBJ_17 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		OBJ_9 /* SwiftLinkedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftLinkedList.swift; sourceTree = "<group>"; };
@@ -64,7 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_12 /* SwiftLinkedListTests.swift */,
-				OBJ_13 /* XCTestManifests.swift */,
+				A35CA47624561A6000A1CD5B /* SwiftLinkedListPerformanceTests.swift */,
 			);
 			name = SwiftLinkedListTests;
 			path = Tests/SwiftLinkedListTests;
@@ -192,7 +192,7 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_41 /* SwiftLinkedListTests.swift in Sources */,
-				OBJ_42 /* XCTestManifests.swift in Sources */,
+				A35CA47824561B0900A1CD5B /* SwiftLinkedListPerformanceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
