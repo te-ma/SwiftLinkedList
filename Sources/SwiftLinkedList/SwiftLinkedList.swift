@@ -9,20 +9,25 @@
 public class LinkedList<T> {
 
     public class ListNode<T> {
-        var element: T
+        public var element: T
         weak var previous: ListNode?
         var next: ListNode?
         
         init(_ element: T) {
+            print("init \(element)")
             self.element = element
             self.previous = nil
             self.next = nil
+        }
+        
+        deinit {
+            print("deinit \(self.element)")
         }
     }
     
     public typealias Node = ListNode<T>
     
-    private(set) var head: Node?
+    public var head: Node?
     private(set) var tail: Node?
     private(set) var count: Int
     
@@ -30,6 +35,10 @@ public class LinkedList<T> {
         self.head = nil
         self.tail = nil
         self.count = 0
+    }
+    
+    deinit {
+        print("deinit list")
     }
     
     public convenience init(_ elements: [T]) {
@@ -57,7 +66,6 @@ public class LinkedList<T> {
             self.head = node
             self.tail = node
         }
-        
         self.count += 1
     }
     
