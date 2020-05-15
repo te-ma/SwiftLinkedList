@@ -53,9 +53,9 @@ final class SwiftLinkedListPerformanceTests: XCTestCase {
             }
             
             startMeasuring()
-            for _ in 0..<1000 {
+            for _ in 0..<100 {
 
-                _ = list.remove(at: 999)
+                _ = list.remove(at: 39999)
 
             }
             stopMeasuring()
@@ -74,9 +74,9 @@ final class SwiftLinkedListPerformanceTests: XCTestCase {
             }
             
             startMeasuring()
-            for _ in 0..<1000 {
+            for _ in 0..<100 {
 
-                _ = arr.remove(at: 999)
+                _ = arr.remove(at: 39999)
 
             }
             stopMeasuring()

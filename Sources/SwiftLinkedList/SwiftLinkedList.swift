@@ -1,11 +1,14 @@
 /**
-   This framework implements basic double-linked list data structure
+   This framework implements a basic double-linked list data structure.
     - Complexity:
-        - Traversal: O(n)
-        - Access a known element: O(1)
-        - Access element by index: O(n)
-        - Append element: O(1)
-        - Remove element: O(1)
+        - Append/prepend an element: *O(1)*
+        - Access a known element: *O(1)*
+        - Access an element by index: *O(n)*
+        - Remove a known element: *O(1)*
+        - Remove an element at index: *O(n)*
+        - Traversal: *O(n)*
+    - TODO:
+        - Insert at index
 */
 
 public class LinkedList<T> {
@@ -24,8 +27,8 @@ public class LinkedList<T> {
     
     public typealias Node = ListNode<T>
     
-    public var head: Node?
-    private(set) var tail: Node?
+    private var head: Node?
+    private var tail: Node?
     private(set) var count: Int
     
     public init() {
@@ -34,8 +37,8 @@ public class LinkedList<T> {
         self.count = 0
     }
     
-//  Custom deiniе deallocateы items in sequiential order
-//  Default deinit deallocateы recursively causing stack overflow on large lists
+//  Custom deinit to deallocate items in sequiential order
+//  Default deinit will deallocate recursively causing stack overflow on large lists
     deinit {
         var i = self.makeIterator()
         self.head = nil
@@ -45,17 +48,24 @@ public class LinkedList<T> {
         }
     }
     
+    //MARK: Public methods
+    
     /**
-        Initializes a list using  an array of elements
+        Initializes a list using  an array of elements.
      */
     public convenience init(_ elements: [T]) {
         self.init()
         
         for element in elements {
-            _ = self.append(element)
+            self.append(Node(element))
         }
     }
     
+    /**
+        Adds the element to the end of the list and returns the new element.
+        - Returns:
+            Element of type `Node`.
+     */
     public func append(_ element: T) -> Node {
         let newNode = Node(element)
         self.append(newNode)
@@ -63,17 +73,40 @@ public class LinkedList<T> {
         return newNode
     }
     
-    func append(_ node: Node) {
+    /**
+       Adds the element to the end of the list and returns an index of the new element.
+       - Returns:
+           An index of the new element.
+    */
+    public func append(_ element: T) -> Int {
+        let newNode = Node(element)
+        self.append(newNode)
         
-        if self.tail != nil {
-            self.tail!.next = node
-            node.previous = self.tail
-            self.tail = node
-        } else {
-            self.head = node
-            self.tail = node
-        }
-        self.count += 1
+        return self.count
+    }
+    
+    /**
+       Inserts the element to the beginning of the list and returns the new element.
+       - Returns:
+           Element of type `Node`.
+    */
+    public func prepend(_ element: T) -> Node {
+        let newNode = Node(element)
+        self.prepend(newNode)
+        
+        return newNode
+    }
+    
+    /**
+       Inserts the element to the beginning of the list and returns an index of the new element.
+       - Returns:
+           An index of the new element.
+    */
+    public func prepend(_ element: T) -> Int {
+        let newNode = Node(element)
+        self.prepend(newNode)
+        
+        return self.count
     }
     
     public func remove(at index: Int) {
@@ -105,9 +138,35 @@ public class LinkedList<T> {
         return node.element
     }
     
+//    MARK: Private methods
+    
+    func append(_ node: Node) {
+        
+        if self.tail != nil {
+            self.tail!.next = node
+            node.previous = self.tail
+            self.tail = node
+        } else {
+            self.head = node
+            self.tail = node
+        }
+        self.count += 1
+    }
+    
+    func prepend(_ node: Node) {
+        if self.head != nil {
+            self.head!.previous = node
+            node.next = self.head
+            self.head = node
+        } else {
+            self.head = node
+            self.tail = node
+        }
+        self.count += 1
+    }
 }
 
-// Implements Sequence protocol to enable traversal
+//Implements Sequence protocol to enable loop traversal
 
 extension LinkedList: Sequence {
     public struct LinkedListIterator: IteratorProtocol {
