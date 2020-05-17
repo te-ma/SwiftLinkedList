@@ -10,5 +10,5 @@ Provides a basic imlementation of a double-linked list.
 
 ### Manual
 
-Option 1: Clone the repository and drag the project to you worktree
-Option 2: Clone the repository and drag SwiftLinkedList to your worktree
+- Option 1: Clone the repository and drag the project to your worktree
+- Option 2: Clone the repository and drag SwiftLinkedList.swift into your worktree

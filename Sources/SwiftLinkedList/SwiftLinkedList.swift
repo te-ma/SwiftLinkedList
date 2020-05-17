@@ -11,9 +11,9 @@
         - Insert at index
 */
 
-public class LinkedList<T> {
+final public class LinkedList<T> {
 
-    public class ListNode<T> {
+    final public class ListNode<T> {
         public var element: T
         weak var previous: ListNode?
         var next: ListNode?
@@ -27,9 +27,9 @@ public class LinkedList<T> {
     
     public typealias Node = ListNode<T>
     
-    private var head: Node?
-    private var tail: Node?
-    private(set) var count: Int
+    var head: Node?
+    var tail: Node?
+    public private(set) var count: Int
     
     public init() {
         self.head = nil
@@ -40,8 +40,10 @@ public class LinkedList<T> {
 //  Custom deinit to deallocate items in sequiential order
 //  Default deinit will deallocate recursively causing stack overflow on large lists
     deinit {
+        
         var i = self.makeIterator()
         self.head = nil
+        
         while let node = i.next() {
             node.next?.previous = nil
             node.next = nil
@@ -62,11 +64,11 @@ public class LinkedList<T> {
     }
     
     /**
-        Adds the element to the end of the list and returns the new element.
+        Adds a new node containing the element to the end of the list and  returns the new node.
         - Returns:
             Element of type `Node`.
      */
-    public func append(_ element: T) -> Node {
+    @discardableResult public func append(_ element: T) -> Node {
         let newNode = Node(element)
         self.append(newNode)
         
@@ -74,23 +76,11 @@ public class LinkedList<T> {
     }
     
     /**
-       Adds the element to the end of the list and returns an index of the new element.
-       - Returns:
-           An index of the new element.
-    */
-    public func append(_ element: T) -> Int {
-        let newNode = Node(element)
-        self.append(newNode)
-        
-        return self.count
-    }
-    
-    /**
-       Inserts the element to the beginning of the list and returns the new element.
+       Inserts a new node containing the element at the beginning of the list and  returns the new node.
        - Returns:
            Element of type `Node`.
     */
-    public func prepend(_ element: T) -> Node {
+    @discardableResult public func prepend(_ element: T) -> Node {
         let newNode = Node(element)
         self.prepend(newNode)
         
@@ -98,30 +88,11 @@ public class LinkedList<T> {
     }
     
     /**
-       Inserts the element to the beginning of the list and returns an index of the new element.
+       Removes a given node from the list and returns the element stored in that node.
        - Returns:
-           An index of the new element.
+           Element of type `T`.
     */
-    public func prepend(_ element: T) -> Int {
-        let newNode = Node(element)
-        self.prepend(newNode)
-        
-        return self.count
-    }
-    
-    public func remove(at index: Int) {
-        var i = 0
-
-        for node in self {
-            if i == index {
-                self.remove(node)
-                return
-            }
-            i += 1
-        }
-    }
-    
-    @discardableResult public func remove(_ node: Node) -> T? {
+    @discardableResult public func remove(_ node: Node) -> T {
         if node === tail {
             self.tail = node.previous
         }
@@ -138,18 +109,46 @@ public class LinkedList<T> {
         return node.element
     }
     
-//    MARK: Private methods
+    /**
+       Removes a node containing the element at a given index and returns the element stored in that node.
+       - Returns:
+           Element of type `T?`.
+    */
+    @discardableResult public func remove(at index: Int) -> T {
+        
+        guard index >= 0 && index < self.count else {
+            fatalError("Index out of range!")
+        }
+        
+        //Given the above checks, we can be sure that nodeToRemove will never be nil
+        var nodeToRemove: Node!
+        
+        var iterator = self.makeIterator()
+        var i = 0
+        while let node = iterator.next() {
+            if i == index {
+                nodeToRemove = node
+                break
+            }
+            i += 1
+        }
+
+        return self.remove(nodeToRemove)
+    }
+    
+    //MARK: Private methods
     
     func append(_ node: Node) {
         
         if self.tail != nil {
             self.tail!.next = node
             node.previous = self.tail
-            self.tail = node
+            
         } else {
             self.head = node
-            self.tail = node
         }
+        
+        self.tail = node
         self.count += 1
     }
     
@@ -157,11 +156,11 @@ public class LinkedList<T> {
         if self.head != nil {
             self.head!.previous = node
             node.next = self.head
-            self.head = node
         } else {
-            self.head = node
             self.tail = node
         }
+        
+        self.head = node
         self.count += 1
     }
 }
